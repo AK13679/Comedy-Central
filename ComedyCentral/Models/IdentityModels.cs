@@ -20,6 +20,9 @@ namespace ComedyCentral.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Comedy> Comedies { get; set; }
+        public DbSet<Description> Descriptions { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

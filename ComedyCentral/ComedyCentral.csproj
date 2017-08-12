@@ -198,8 +198,26 @@
     <Compile Include="Migrations\201708121753334_inimod.Designer.cs">
       <DependentUpon>201708121753334_inimod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708121810580_addedcomedy.cs" />
+    <Compile Include="Migrations\201708121810580_addedcomedy.Designer.cs">
+      <DependentUpon>201708121810580_addedcomedy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708121817207_addedcomedy1.cs" />
+    <Compile Include="Migrations\201708121817207_addedcomedy1.Designer.cs">
+      <DependentUpon>201708121817207_addedcomedy1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708121819250_addedcomedy2.cs" />
+    <Compile Include="Migrations\201708121819250_addedcomedy2.Designer.cs">
+      <DependentUpon>201708121819250_addedcomedy2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708121825591_OverrideConv.cs" />
+    <Compile Include="Migrations\201708121825591_OverrideConv.Designer.cs">
+      <DependentUpon>201708121825591_OverrideConv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comedy.cs" />
+    <Compile Include="Models\Description.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -284,6 +302,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708121753334_inimod.resx">
       <DependentUpon>201708121753334_inimod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708121810580_addedcomedy.resx">
+      <DependentUpon>201708121810580_addedcomedy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708121817207_addedcomedy1.resx">
+      <DependentUpon>201708121817207_addedcomedy1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708121819250_addedcomedy2.resx">
+      <DependentUpon>201708121819250_addedcomedy2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708121825591_OverrideConv.resx">
+      <DependentUpon>201708121825591_OverrideConv.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
