@@ -33,12 +33,18 @@ namespace ComedyCentral.Controllers
         [HttpPost]
         public ActionResult Create(ComedyViewModel viewModel)
         {
-           // var description = _context.Descriptions.Single(g => g.Id == viewModel.Description);
-           // var artist = _context.Users.Single(u => u.Id == User.Identity.GetUserId());
+            // var description = _context.Descriptions.Single(g => g.Id == viewModel.Description);
+            // var artist = _context.Users.Single(u => u.Id == User.Identity.GetUserId());
+            if (!ModelState.IsValid)
+            {
+                viewModel.Descriptions = _context.Descriptions.ToList();
+                return View("Create", viewModel);
+            }
+
             var comedy = new Comedy
             {
                 ArtistId = User.Identity.GetUserId(),
-                DateTime = viewModel.DateTime,
+                DateTime = viewModel.GetDateTime(),
                 DescriptionId = viewModel.Description,
                 Venue = viewModel.Venue
             };
