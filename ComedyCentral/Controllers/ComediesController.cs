@@ -31,6 +31,7 @@ namespace ComedyCentral.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ComedyViewModel viewModel)
         {
             // var description = _context.Descriptions.Single(g => g.Id == viewModel.Description);
