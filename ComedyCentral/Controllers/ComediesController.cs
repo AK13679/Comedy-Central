@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using ComedyCentral.Models;
 using ComedyCentral.ViewModels;
+using Microsoft.AspNet.Identity;
+
 
 namespace ComedyCentral.Controllers
 {
@@ -15,7 +17,7 @@ namespace ComedyCentral.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET: Comedies
+       [Authorize]
         public ActionResult Create()
         {
             var viewModel = new ComedyViewModel
@@ -24,6 +26,27 @@ namespace ComedyCentral.Controllers
             };
 
             return View(viewModel);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(ComedyViewModel viewModel)
+        {
+           // var description = _context.Descriptions.Single(g => g.Id == viewModel.Description);
+           // var artist = _context.Users.Single(u => u.Id == User.Identity.GetUserId());
+            var comedy = new Comedy
+            {
+                ArtistId = User.Identity.GetUserId(),
+                DateTime = viewModel.DateTime,
+                DescriptionId = viewModel.Description,
+                Venue = viewModel.Venue
+            };
+
+            _context.Comedies.Add(comedy);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

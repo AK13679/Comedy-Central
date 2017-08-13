@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ComedyCentral.Models;
 
 
@@ -9,7 +10,11 @@ namespace ComedyCentral.ViewModels
         public string Venue { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
-        public int Description { get; set; }
+        public byte Description { get; set; }
         public IEnumerable<Description> Descriptions { get; set; }
+        public DateTime DateTime
+        {
+            get { return DateTime.Parse(string.Format("{0} {1}", Date, Time)); }
+        }
     }
 }
