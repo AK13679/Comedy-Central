@@ -17,7 +17,9 @@ namespace ComedyCentral.Controllers
 
         public ActionResult Index()
         {
-            var upcomingShows = _context.Comedies.Include(c => c.Artist)
+            var upcomingShows = _context.Comedies
+                .Include(c => c.Artist)
+                .Include(c=>c.Description)
                 .Where(c => c.DateTime > DateTime.Now);
 
             return View(upcomingShows);
