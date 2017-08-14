@@ -1,13 +1,28 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
+using ComedyCentral.Models;
 
 namespace ComedyCentral.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var upcomingShows = _context.Comedies.Include(c => c.Artist)
+                .Where(c => c.DateTime > DateTime.Now);
+
+            return View(upcomingShows);
         }
+
 
         public ActionResult About()
         {
