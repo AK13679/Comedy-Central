@@ -227,8 +227,13 @@
     <Compile Include="Migrations\201708141400181_addnametouser.Designer.cs">
       <DependentUpon>201708141400181_addnametouser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708141816478_Attendance.cs" />
+    <Compile Include="Migrations\201708141816478_Attendance.Designer.cs">
+      <DependentUpon>201708141816478_Attendance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Comedy.cs" />
     <Compile Include="Models\Description.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -341,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708141400181_addnametouser.resx">
       <DependentUpon>201708141400181_addnametouser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708141816478_Attendance.resx">
+      <DependentUpon>201708141816478_Attendance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

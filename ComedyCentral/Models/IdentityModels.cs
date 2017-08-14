@@ -27,6 +27,7 @@ namespace ComedyCentral.Models
     {
         public DbSet<Comedy> Comedies { get; set; }
         public DbSet<Description> Descriptions { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
