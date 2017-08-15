@@ -1,0 +1,37 @@
+﻿using System.Linq;
+using System.Web.Http;
+using ComedyCentral.Models;
+using Microsoft.AspNet.Identity;
+
+namespace ComedyCentral.Controllers.Api
+{
+    [Authorize]
+    public class AttendancesController : ApiController
+    {
+        private ApplicationDbContext _context;
+
+        public AttendancesController()
+        {
+            _context = new ApplicationDbContext(); 
+        }
+
+        [HttpPost]
+        public IHttpActionResult Attend([FromBody]int comedyId)
+        {
+            var userId = User.Identity.GetUserId();
+
+            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.ComedyId == comedyId))
+                return BadRequest("The attendance already exists.");
+
+            var attendance = new Attendance
+            {
+                ComedyId = comedyId,
+                AttendeeId = userId
+            };
+            _context.Attendances.Add(attendance);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+    }
+}

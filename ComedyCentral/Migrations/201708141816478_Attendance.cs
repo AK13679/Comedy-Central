@@ -16,7 +16,7 @@ namespace ComedyCentral.Migrations
                     })
                 .PrimaryKey(t => new { t.ComedyId, t.AttendeeId })
                 .ForeignKey("dbo.AspNetUsers", t => t.AttendeeId, cascadeDelete: true)
-                .ForeignKey("dbo.Comedies", t => t.ComedyId, cascadeDelete: true)
+                .ForeignKey("dbo.Comedies", t => t.ComedyId)
                 .Index(t => t.ComedyId)
                 .Index(t => t.AttendeeId);
             
