@@ -52,9 +52,16 @@ label {
 }
 
 /*Page-level Styles*/
+
+
 .shows {
     list-style: none
 }
+
+    .shows > li {
+        position: relative;
+        margin-bottom: 30px;
+    }
 
     .shows > li .date {
         background: #b81e0d;
@@ -78,10 +85,7 @@ label {
             padding: 6px 12px;
         }
 
-    .shows > li {
-        position: relative;
-        margin-bottom: 30px;
-    }
+    
 
         .shows > li .details {
             position: absolute;
@@ -98,7 +102,4 @@ label {
                 font-size: 15px;
             }
 
-            .shows > li .details .venue {
-                font-size: 12px;
-                padding-left: 35px;
-            }
+            

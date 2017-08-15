@@ -23,10 +23,30 @@
             <span class="description">
                 @comedy.Description.Name
             </span>
-            <span class="venue">
-                @comedy.Venue
-            </span>
+            <button data-gig-id="@comedy.Id" class="btn btn-default btn-sm pull-right ">Going?</button>
         </div>
         </li>
     }
 </ul>
+
+@section scripts
+{
+    @*<script>
+        $(document).ready(function() {
+            $(".js-toggle-attendance").click(function(e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { comedyId: button.attr("data-gig-id") })
+                    .done(function() {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+                    })
+                    .fail(function() {
+                        alert("Something failed!");
+                    });
+            });
+        }); 
+    </script>*@
+
+}
