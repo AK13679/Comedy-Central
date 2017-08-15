@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ComedyCentral.Controllers.Api
 {
-    //[Authorize]
+    [Authorize]
     public class AttendancesController : ApiController
     {
         private ApplicationDbContext _context;
@@ -22,7 +22,6 @@ namespace ComedyCentral.Controllers.Api
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
 
-            User.Identity.GetUserName();
 
             if (_context.Attendances.Any(a => a.AttendeeId == userId && a.ComedyId == comedyId))
                 return BadRequest("The attendance already exists.");
