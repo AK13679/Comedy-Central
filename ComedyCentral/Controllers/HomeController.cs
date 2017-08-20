@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using ComedyCentral.Models;
+using ComedyCentral.ViewModels;
 
 namespace ComedyCentral.Controllers
 {
@@ -22,7 +23,16 @@ namespace ComedyCentral.Controllers
                 .Include(c=>c.Description)
                 .Where(c => c.DateTime > DateTime.Now);
 
-            return View(upcomingShows);
+
+            var viewModel = new HomeViewModel
+            {
+                UpcomingShows = upcomingShows,
+                ShowActions = User.Identity.IsAuthenticated,
+              
+            };
+
+
+            return View(viewModel);
         }
 
 

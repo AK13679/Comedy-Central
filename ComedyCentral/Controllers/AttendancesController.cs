@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using System.Web;
 using System.Web.Http;
+using ComedyCentral.Dtos;
 using ComedyCentral.Models;
-using Microsoft.AspNet.Identity;
 
 
 namespace ComedyCentral.Controllers.Api
@@ -18,17 +17,19 @@ namespace ComedyCentral.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult Attend([FromBody] int comedyId)
+        //    public IHttpActionResult Attend([FromBody] int comedyId)
+        public IHttpActionResult Attend(AttendanceDto dto)
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var userId = "4651c51c-f935-48a0-8d79-f030fc14607a";
+                //HttpContext.Current.User.Identity.GetUserId();
 
 
-            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.ComedyId == comedyId))
+            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.ComedyId == dto.ComedyId))
                 return BadRequest("The attendance already exists.");
 
             var attendance = new Attendance
             {
-                ComedyId = comedyId,
+                ComedyId = dto.ComedyId,
                 AttendeeId = userId
             };
             _context.Attendances.Add(attendance);

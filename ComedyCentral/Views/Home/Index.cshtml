@@ -1,70 +1,106 @@
-﻿@model IEnumerable<ComedyCentral.Models.Comedy>
+﻿@model ComedyCentral.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
 <ul class="shows">
-    @foreach (var comedy in Model)
+    @foreach (var comedy in Model.UpcomingShows)
     {
-
-    <li>
-        <div class="date">
-            <div class="months">
-                @comedy.DateTime.ToString("MMM")
+        <li>
+            <div class="date">
+                <div class="months">
+                    @comedy.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @comedy.DateTime.ToString("d ")
+                </div>
             </div>
-            <div class="day">
-                @comedy.DateTime.ToString("d ")
+            <div class="details">
+                <span class="artist">
+                    @comedy.Artist.Name
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@comedy.ArtistId">Follow</button>
+                    }
+                </span>
+                <span class="description">
+                    @comedy.Description.Name
+                </span>
+                @if (Model.ShowActions)
+                {
+                    <button data-gig-id="@comedy.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                }
             </div>
-        </div>
-        <div class="details">
-            <span class="artist">
-                @comedy.Artist.Name
-            </span>
-            <span class="description">
-                @comedy.Description.Name
-            </span>
-            <button data-gig-id="@comedy.Id" class="btn btn-default btn-sm pull-right ">Going?</button>
-        </div>
 
         </li>
     }
 </ul>
 
-<div id="myMap" style= "position:relative; width:400px; height:400px;"></div>
+<div id="myMap" style="position:relative; width:400px; height:400px;"></div>
 
 @section scripts
 {
- <script type='text/javascript'
-        src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
-        async defer></script>
-<script type='text/javascript'>
-    var map;
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-attendance").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { comedyId: button.attr("data-gig-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
 
-    function GetMap() {
-        map = new Microsoft.Maps.Map('#myMap', {
-            credentials: 'Aq9ji9Cwpl8Xx2OUZlAMNz6xF1YbQcGBYnOjGj7h4H9E3Fxi68rn9kOHABiB3m9B'
-        });
+            $(".js-toggle-follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button.text("Following");
+                    })
+                    .fail(function () {
+                        alert("Something failed");
+                    });
 
-        //Load the spatial math module
-        Microsoft.Maps.loadModule("Microsoft.Maps.SpatialMath", function () {
-            //Request the user's location
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var loc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
-
-                //Create an accuracy circle
-                var path = Microsoft.Maps.SpatialMath.getRegularPolygon(loc, position.coords.accuracy, 36, Microsoft.Maps.SpatialMath.Meters);
-                var poly = new Microsoft.Maps.Polygon(path);
-                map.entities.push(poly);
-
-                //Add a pushpin at the user's location.
-                var pin = new Microsoft.Maps.Pushpin(loc);
-                map.entities.push(pin);
-
-                //Center the map on the user's location.
-                map.setView({ center: loc, zoom: 17 });
             });
         });
-    }
-</script>
+
+    </script>
+    <script type='text/javascript'
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
+            async defer></script>
+    <script type='text/javascript'>
+            var map;
+
+            function GetMap() {
+                map = new Microsoft.Maps.Map('#myMap', {
+                    credentials: 'Aq9ji9Cwpl8Xx2OUZlAMNz6xF1YbQcGBYnOjGj7h4H9E3Fxi68rn9kOHABiB3m9B'
+                });
+
+                //Load the spatial math module
+                Microsoft.Maps.loadModule("Microsoft.Maps.SpatialMath", function () {
+                    //Request the user's location
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var loc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
+
+                        //Create an accuracy circle
+                        var path = Microsoft.Maps.SpatialMath.getRegularPolygon(loc, position.coords.accuracy, 36, Microsoft.Maps.SpatialMath.Meters);
+                        var poly = new Microsoft.Maps.Polygon(path);
+                        map.entities.push(poly);
+
+                        //Add a pushpin at the user's location.
+                        var pin = new Microsoft.Maps.Pushpin(loc);
+                        map.entities.push(pin);
+
+                        //Center the map on the user's location.
+                        map.setView({ center: loc, zoom: 17 });
+                    });
+                });
+            }
+    </script>
 
 }
